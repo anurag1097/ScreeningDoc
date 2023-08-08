@@ -1,0 +1,38 @@
+/* HomePage.css */
+.container {
+  margin-top: 50px; /* Adjust the margin as needed */
+}
+
+.highlight-box {
+  border: 2px solid #007bff;
+  background-color: rgba(242, 245, 249, 0.8);
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+}
+
+.highlight-box:not(:first-child) {
+  margin-top: 20px;
+}
+
+.card-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #333; /* Change the title color */
+  font-family: "Times New Roman", Times, serif; /* Add font-family */
+}
+
+.card-subtitle {
+  font-size: 18px;
+  color: #777; /* Change the subtitle color */
+  font-family: "Times New Roman", Times, serif; /* Add font-family */
+}
+
+.highlight-box p {
+  font-size: 16px;
+  color: #555; /* Change the bullet point text color */
+  font-family: "Times New Roman"; /* Add font-family */
+  font-style: "italic"; /* Add font-style */
+}
+
+/* Add any other CSS styling as needed */
