@@ -35,6 +35,10 @@ function FormPage(isAuthenticated) {
     ibdDiagnoseDate: '',
     hereditaryColorectalCancer: '',
     radiationHistory: '',
+    brcaMutation: '',
+    relativeWithMutation: '',
+    chestRadiation: '',
+    lrrSyndrome: '',
   });
 
   const handleFormChange = (e) => {
@@ -66,7 +70,11 @@ function FormPage(isAuthenticated) {
                       "personalHistoryIBD": formData["personalHistoryIBD"],
                       "ibdDiagnoseDate": formData["ibdDiagnoseDate"],
                       "hereditaryColorectalCancer": formData["hereditaryColorectalCancer"],
-                      "radiationHistory": formData["radiationHistory"]}});
+                      "radiationHistory": formData["radiationHistory"],
+                      "brcaMutation": formData["brcaMutation"],
+                      "relativeWithMutation": formData["relativeWithMutation"],
+                      "chestRadiation": formData["chestRadiation"],
+                      "lrrSyndrome": formData["lrrSyndrome"]}});
         if (response["data"]["status"] === "success") {
             setResults(response["data"]["recommendation"])
         }
@@ -86,7 +94,12 @@ function FormPage(isAuthenticated) {
       <Container className="mt-5">
       {results && (
         <>
-        <p> {username}, your ScreeningDoc recommendation is here!</p>
+        <p> {username}, Congratulations on taking one step ahead towards staying healthy.
+        Remember, being eligible for cancer screening DOES NOT mean you have cancer or will develop cancer.
+        Screening for cancers help us diagnose the condition before the symptoms appear,
+        at a very early stage when CURATIVE treatment is possible.
+        Kindly reach out to your health care provider for more details.
+        </p>
         <div className="mt-4">
           <Card className="mb-3">
             <Card.Header style={{ backgroundColor: '#1e88e5', color: 'white' }}>
@@ -317,6 +330,94 @@ function FormPage(isAuthenticated) {
                 <option value="no">No</option>
               </Form.Control>
             </Form.Group>
+
+            <Form.Group controlId="brcaMutation" style={{"margin": 10}}>
+                  <Form.Label>Do have a known BRCA1 or BRCA2 gene mutation (based on having had genetic testing)?</Form.Label>
+                  <div>
+                    <Form.Check
+                      type="radio"
+                      name="brcaMutation"
+                      value="yes"
+                      checked={formData.brcaMutation === 'yes'}
+                      onChange={handleFormChange}
+                      label="Yes"
+                    />
+                    <Form.Check
+                      type="radio"
+                      name="brcaMutation"
+                      value="no"
+                      checked={formData.brcaMutation === 'no'}
+                      onChange={handleFormChange}
+                      label="No"
+                    />
+                  </div>
+                </Form.Group>
+
+                <Form.Group controlId="relativeWithMutation" style={{"margin": 10}}>
+                  <Form.Label>Do you have a first-degree relative with a BRCA1 or BRCA2 gene mutation, and have not had genetic testing themselves?</Form.Label>
+                  <div>
+                    <Form.Check
+                      type="radio"
+                      name="relativeWithMutation"
+                      value="yes"
+                      checked={formData.relativeWithMutation === 'yes'}
+                      onChange={handleFormChange}
+                      label="Yes"
+                    />
+                    <Form.Check
+                      type="radio"
+                      name="relativeWithMutation"
+                      value="no"
+                      checked={formData.relativeWithMutation === 'no'}
+                      onChange={handleFormChange}
+                      label="No"
+                    />
+                  </div>
+                </Form.Group>
+
+                <Form.Group controlId="chestRadiation" style={{"margin": 10}}>
+                  <Form.Label>Had radiation therapy to the chest when they were between the ages of 10 and 30 years?</Form.Label>
+                  <div>
+                    <Form.Check
+                      type="radio"
+                      name="chestRadiation"
+                      value="yes"
+                      checked={formData.chestRadiation === 'yes'}
+                      onChange={handleFormChange}
+                      label="Yes"
+                    />
+                    <Form.Check
+                      type="radio"
+                      name="chestRadiation"
+                      value="no"
+                      checked={formData.chestRadiation === 'no'}
+                      onChange={handleFormChange}
+                      label="No"
+                    />
+                  </div>
+                </Form.Group>
+
+                <Form.Group controlId="lrrSyndrome" style={{"margin": 10}}>
+                  <Form.Label>Do you have Li-Fraumeni syndrome, Cowden syndrome, or Bannayan-Riley-Ruvalcaba syndrome, or have first-degree relatives with one of these syndromes?</Form.Label>
+                  <div>
+                    <Form.Check
+                      type="radio"
+                      name="lrrSyndrome"
+                      value="yes"
+                      checked={formData.lrrSyndrome === 'yes'}
+                      onChange={handleFormChange}
+                      label="Yes"
+                    />
+                    <Form.Check
+                      type="radio"
+                      name="lrrSyndrome"
+                      value="no"
+                      checked={formData.lrrSyndrome === 'no'}
+                      onChange={handleFormChange}
+                      label="No"
+                    />
+                  </div>
+                </Form.Group>
 
             <div className="text-center">
               <Button variant="primary" type="submit" onClick={getResults}>

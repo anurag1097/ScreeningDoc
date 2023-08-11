@@ -34,7 +34,11 @@ def handle_sign_in():
         user_details = request.json
         is_authenticated, username = SignInSignUpHelper().authorise_user(user_details)
         if is_authenticated:
-            return {"status": "success", "name": username, "email": user_details["email"]}, 200
+            return {
+                "status": "success",
+                "name": username,
+                "email": user_details["email"],
+            }, 200
         else:
             return {
                 "status": "failure",

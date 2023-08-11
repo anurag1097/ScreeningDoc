@@ -2,13 +2,16 @@ import {React, useEffect} from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './HomePage.css';
+import { Instagram, LinkedIn } from '@mui/icons-material';
+
 
 function HomePage() {
   const points = [
-    'Discover eligibility for cancer screening tests.',
-    'Personalized recommendations based on health profile.',
-    'Latest medical guidelines and insights.',
-    'Empowerment through early detection and knowledge.'
+    '* Eligibility for cancer screening based on personalised health profile.',
+    '* Based on recent Screening Guidelines (source ACS, USPSTF).',
+    '* Being eligible for screening DOES NOT mean you have the disease.',
+    '* Cancer screening saves lives via early detection.',
+    '* This tool is not meant to replace clinical judgement and individualised patient care.'
   ];
 
   useEffect(() => {
