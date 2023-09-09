@@ -1,8 +1,8 @@
 from flask_cors import CORS
 from flask import Flask, request, jsonify
-from utils.configuration_helper import ConfigurationHelper
-from utils.sign_in_sing_up_helper import SignInSignUpHelper
-from utils.result_calculator import FetchResult
+from backend.utils.configuration_helper import ConfigurationHelper
+from backend.utils.sign_in_sing_up_helper import SignInSignUpHelper
+from backend.utils.result_calculator import FetchResult
 
 app = Flask(__name__, static_folder="../screening_doc_ui/build", static_url_path="/")
 CORS(app)

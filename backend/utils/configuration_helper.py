@@ -6,8 +6,6 @@ class ConfigurationHelper:
     __instance = None
 
     def __init__(self):
-        if ConfigurationHelper.__instance is not None:
-            raise Exception("This is a singleton class!")
         ConfigurationHelper.__instance = self
         self.config = configparser.ConfigParser(
             interpolation=configparser.ExtendedInterpolation()
