@@ -74,7 +74,6 @@ function AboutUs(props) {
                     <Instagram fontSize="large" />
                   </a>
                 </Card.Body>
-
                 </Card>
         )
     }
