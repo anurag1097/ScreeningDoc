@@ -87,7 +87,7 @@ function SignInSignUpPage({ isAuthenticated, setIsAuthenticated }) {
 
     try {
       setLoading(true)
-      const response = await axios.post(`${BASE_URL}${apiEndpoint}`, formData);
+      const response = await axios.post(`/${apiEndpoint}`, formData);
       if (response["data"]["status"] === "success") {
         if (!isSignIn) {
             setInfo("Sign-up successful. Please login now.")

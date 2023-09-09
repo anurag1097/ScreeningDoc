@@ -57,8 +57,8 @@ function FormPage(isAuthenticated) {
   const getResults = async(e) => {
     try {
         setLoading(true)
-        var apiEndpoint = 'get-result'
-        const response = await axios.get(`${BASE_URL}${apiEndpoint}`,
+        var apiEndpoint = '/get-result'
+        const response = await axios.get(`${apiEndpoint}`,
             {params: {"age": formData["age"],
                       "gender": formData["gender"],
                       "currentSmoker": formData["currentSmoker"],
