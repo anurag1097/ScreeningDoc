@@ -4,9 +4,14 @@ from utils.configuration_helper import ConfigurationHelper
 from utils.sign_in_sing_up_helper import SignInSignUpHelper
 from utils.result_calculator import FetchResult
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="../screening_doc_ui/build", static_url_path="/")
 CORS(app)
 constants = ConfigurationHelper().get_constants()
+
+
+@app.route("/")
+def home():
+    return app.send_static_file("index.html")
 
 
 @app.route("/sign-up", methods=["POST"])
@@ -59,4 +64,5 @@ def fetch_results_based_on_input():
 
 
 if __name__ == "__main__":
-    app.run(host=constants["HOST"], port=constants["PORT"])
+    # app.run(host=constants["HOST"], port=constants["PORT"])
+    app.run(debug=False, host="0.0.0.0")
