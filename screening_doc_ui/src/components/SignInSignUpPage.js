@@ -42,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
 function SignInSignUpPage({ isAuthenticated, setIsAuthenticated }) {
   const classes = useStyles();
   const [isSignIn, setIsSignIn] = useState(true);
+  const [isGuest, setIsGuest] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -58,6 +59,10 @@ function SignInSignUpPage({ isAuthenticated, setIsAuthenticated }) {
     setIsSignIn(!isSignIn);
   };
 
+  const handleSignInAsGuest = (e) => {
+    setIsGuest(true)
+  }
+
   const handleFormChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -68,48 +73,54 @@ function SignInSignUpPage({ isAuthenticated, setIsAuthenticated }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const apiEndpoint = isSignIn ? 'sign-in' : 'sign-up'; // Adjust the endpoint names
-    if (!isSignIn && (!formData.firstName || !formData.lastName)) {
-      setError('First name and last ame are required.');
-      return;
-    }
+    if (!isGuest) {
+        if (!isSignIn && (!formData.firstName || !formData.lastName)) {
+          setError('First name and last ame are required.');
+          return;
+        }
 
-    if (!formData.email || !formData.password) {
-      setError('Email and password are required.');
-      return;
-    }
+        if (!formData.email || !formData.password) {
+          setError('Email and password are required.');
+          return;
+        }
 
-    if (!isSignIn && formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match.');
-      return;
+        if (!isSignIn && formData.password !== formData.confirmPassword) {
+          setError('Passwords do not match.');
+          return;
+        }
     }
 
     try {
       setLoading(true)
-      const response = await axios.post(`/${apiEndpoint}`, formData);
-      if (response["data"]["status"] === "success") {
-        if (!isSignIn) {
-            setInfo("Sign-up successful. Please login now.")
-            setError(null)
-            handleToggle()
-            setFormData({
-                email: '',
-                password: '',
-                confirmPassword: '',
-                firstName: '',
-                lastName: ''
-              })
-        }
-        else {
-            setIsAuthenticated(true)
-            navigate("/form", {state: {name: response["data"]["name"], email: response["data"]["email"], isAuthenticated: true}})
-        }
+      if (isGuest) {
+        navigate("/form", { state: { name: "Guest", email: "guest@example.com", isAuthenticated: true } });
       }
       else {
-        setError(response["data"]["msg"])
+          const response = await axios.post(`/${apiEndpoint}`, formData);
+          if (response["data"]["status"] === "success") {
+            if (!isSignIn) {
+                setInfo("Sign-up successful. Please login now.")
+                setError(null)
+                handleToggle()
+                setFormData({
+                    email: '',
+                    password: '',
+                    confirmPassword: '',
+                    firstName: '',
+                    lastName: ''
+                  })
+            }
+            else {
+                setIsAuthenticated(true)
+                navigate("/form", {state: {name: response["data"]["name"], email: response["data"]["email"], isAuthenticated: true}})
+            }
+          }
+          else {
+            setError(response["data"]["msg"])
+          }
+          setLoading(false)
       }
-      setLoading(false)
     } catch (error) {
       console.error('API error:', error);
       setError('An error occurred. Please try again.');
@@ -162,7 +173,6 @@ function SignInSignUpPage({ isAuthenticated, setIsAuthenticated }) {
           <TextField
             variant="outlined"
             margin="normal"
-            required
             fullWidth
             id="email"
             label="Email Address"
@@ -175,7 +185,6 @@ function SignInSignUpPage({ isAuthenticated, setIsAuthenticated }) {
           <TextField
             variant="outlined"
             margin="normal"
-            required
             fullWidth
             name="password"
             label="Password"
@@ -224,6 +233,17 @@ function SignInSignUpPage({ isAuthenticated, setIsAuthenticated }) {
           >
             {isSignIn ? 'Sign In' : 'Sign Up'}
           </Button>
+          <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="secondary"
+                    className={classes.submit}
+                    style={{ marginTop: 7 }}
+                    onClick={handleSignInAsGuest}
+                  >
+                    Sign In as Guest
+                  </Button>
 
           <Grid container justifyContent="center">
             <Grid item>
@@ -234,6 +254,7 @@ function SignInSignUpPage({ isAuthenticated, setIsAuthenticated }) {
               </Link>
             </Grid>
           </Grid>
+
         </form>
         ) :
         (<CircularProgress/>)

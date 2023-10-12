@@ -9,6 +9,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 function FormPage(isAuthenticated) {
   const location = useLocation();
   const loadForm = location.state?.isAuthenticated;
+  console.log(loadForm)
   const username = location.state?.name;
   const email = location.state?.email;
   const navigate = useNavigate();
