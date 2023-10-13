@@ -213,7 +213,7 @@ function FormPage(isAuthenticated) {
                     </Form.Group>
                 )
             }
-          /* added cpnditional statement */
+
             {
               formData["pastSmoker"] === "yes" && (
                 <>
