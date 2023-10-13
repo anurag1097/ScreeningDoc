@@ -213,29 +213,38 @@ function FormPage(isAuthenticated) {
                     </Form.Group>
                 )
             }
-            <Form.Group controlId="packsPerDay" style={{"margin": 10}}>
-              <Form.Label>How many packs of cigarettes do you smoke per day?</Form.Label>
-              <Form.Control
-                type="number"
-                name="packsPerDay"
-                value={formData.packsPerDay}
-                onChange={handleFormChange}
-                placeholder="Enter packs per day"
-                required
-              />
-            </Form.Group>
+          
+            {
+              formData["pastSmoker"] === "yes" && (
+                <>
+                <Form.Group controlId="packsPerDay" style={{"margin": 10}}>
+                <Form.Label>How many packs of cigarettes do you smoke per day?</Form.Label>
+                <Form.Control
+                  type="number"
+                  name="packsPerDay"
+                  value={formData.packsPerDay}
+                  onChange={handleFormChange}
+                  placeholder="Enter packs per day"
+                  required
+                />
+              </Form.Group>
+  
+              <Form.Group controlId="yearsSmoked" style={{"margin": 10}}>
+                <Form.Label>How many years have you smoked for?</Form.Label>
+                <Form.Control
+                  type="number"
+                  name="yearsSmoked"
+                  value={formData.yearsSmoked}
+                  onChange={handleFormChange}
+                  placeholder="Enter years smoked"
+                  required
+                />
+              </Form.Group>
+              </>
+              )
 
-            <Form.Group controlId="yearsSmoked" style={{"margin": 10}}>
-              <Form.Label>How many years have you smoked for?</Form.Label>
-              <Form.Control
-                type="number"
-                name="yearsSmoked"
-                value={formData.yearsSmoked}
-                onChange={handleFormChange}
-                placeholder="Enter years smoked"
-                required
-              />
-            </Form.Group>
+
+            }
 
             <Form.Group controlId="personalHistoryCancer" style={{"margin": 10}}>
               <Form.Label>
