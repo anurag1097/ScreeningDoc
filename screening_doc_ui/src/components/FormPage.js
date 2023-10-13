@@ -90,6 +90,8 @@ function FormPage(isAuthenticated) {
     }
   };
 
+  //configuring git user.name
+
   return (
       !loading? (
       <Container className="mt-5">
