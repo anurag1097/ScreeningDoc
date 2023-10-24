@@ -135,24 +135,25 @@ class FetchResult:
 
     def apply_breast_cancer_logic(self):
         if self.gender == "female":
-            if 50 <= self.age <= 75:
-                msg = (
-                    "Recommendation: According to the USPSTF guidelines, you are eligible for breast cancer "
-                    "screening. This does not mean that you have the disease, but you meet the criteria for "
-                    "screening. Screening with mammogram can help in early detection of breast cancer."
-                )
             if (
-                self.age > 30
-                or self.params["brcaMutation"]
-                or self.params["relativeWithMutation"]
-                or self.params["chestRadiation"]
-                or self.params["lrrSyndrome"]
+                self.age >= 30
+                and self.params["brcaMutation"] == "yes"
+                and self.params["relativeWithMutation"] == "yes"
+                and self.params["chestRadiation"] == "yes"
+                and self.params["lrrSyndrome"] == "yes"
             ):
                 msg = (
-                    "You are at high risk for breast cancer based on certain factors. Kindly consult you primary "
-                    "physician. As per american cancer society should get a breast MRI and a mammogram every year, "
-                    "typically starting at age 30."
+                    "As per American Cancer Society guidelines, you are at high risk for breast cancer. "
+                    "You should get a breast MRI and a mammogram every year, typically starting at age 30."
                 )
+            elif 40 <= self.age <= 44 and all(self.params[param] == "no" for param in self.params):
+                msg = "As per American Cancer Society guidelines, you have an option to start screening with mammogram every year."
+            elif 45 <= self.age <= 54 and all(self.params[param] == "no" for param in self.params):
+                msg = "As per American Cancer Society guidelines, you are eligible for breast cancer screening. You should get mammograms every year."
+            elif self.age >= 55 and all(self.params[param] == "no" for param in self.params):
+                msg = "As per American Cancer Society guidelines, you are eligible for breast cancer screening. You should get a mammogram every year or every other year."
+            else:
+                msg = "No specific breast cancer screening recommendation at the moment. Please consult your primary physician."
         else:
             msg = "No breast cancer screening test is required at the moment. Please inquire again after 6 months."
 
